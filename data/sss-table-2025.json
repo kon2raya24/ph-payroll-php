@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "effective_from": "2025-01-01",
+    "effective_until": null,
+    "applies_to_years": [2025, 2026],
+    "source": "SSS Circular 2024-006 (Employer / Employee)",
+    "source_url": "https://www.sss.gov.ph/sss-contribution-table/",
+    "authority": "Republic Act No. 11199 (Social Security Act of 2018)",
+    "verified_on": "2026-05-19",
+    "notes": [
+      "Official SSS bracket table is published as image only on sss.gov.ph; algorithmic MSC rounding (₱500 increments, rounded to nearest) reproduces the bracketing.",
+      "Total contribution rate: 15% of MSC. Employer share: 10%. Employee share: 5%.",
+      "EC (Employees' Compensation) is employer-paid only.",
+      "Contributions on MSC portion above ₱20,000 are allocated to MySSS Pension Booster (mandatory provident fund, MPF) — separate sub-account but still part of payroll deduction."
+    ]
+  },
+
+  "rate": {
+    "total_percent": 0.15,
+    "employer_percent": 0.10,
+    "employee_percent": 0.05
+  },
+
+  "msc": {
+    "min": 5000,
+    "max": 35000,
+    "increment": 500,
+    "regular_ss_cap": 20000,
+    "_comment": "MSC = round(monthlyCompensation / 500) * 500, clamped to [min, max]. Portion of MSC above regular_ss_cap goes to MPF."
+  },
+
+  "ec": {
+    "_comment": "Employees' Compensation — employer-paid only.",
+    "low_amount": 10,
+    "high_amount": 30,
+    "low_msc_threshold_inclusive": 14500,
+    "_threshold_comment": "EC = low_amount if MSC ≤ 14,500; EC = high_amount if MSC ≥ 15,000."
+  }
+}

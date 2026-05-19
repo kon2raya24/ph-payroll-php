@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "effective_from": "2024-01-01",
+    "effective_until": null,
+    "applies_to_years": [2024, 2025, 2026],
+    "rate_is_final": true,
+    "_rate_is_final_comment": "5% is the final scheduled adjustment under RA 11223 (Universal Health Care Act). No further increases planned after 2026.",
+    "source": "PhilHealth Circular / PIA announcement",
+    "source_url": "https://pia.gov.ph/news/philhealth-sets-5-premium-contribution-rate-for-2026/",
+    "authority": "Republic Act No. 11223 (Universal Health Care Act)",
+    "verified_on": "2026-05-19"
+  },
+
+  "rate": {
+    "total_percent": 0.05,
+    "employer_percent": 0.025,
+    "employee_percent": 0.025
+  },
+
+  "floor": {
+    "salary_threshold_inclusive": 10000,
+    "monthly_premium": 500,
+    "_comment": "Members with monthly basic salary ≤ ₱10,000 pay a fixed ₱500 total (₱250 each side)."
+  },
+
+  "ceiling": {
+    "salary_threshold_inclusive": 100000,
+    "monthly_premium": 5000,
+    "_comment": "Members with monthly basic salary ≥ ₱100,000 pay capped ₱5,000 total (₱2,500 each side)."
+  }
+}
