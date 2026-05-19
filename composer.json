@@ -1,0 +1,23 @@
+{
+  "name": "phdevutils/payroll",
+  "description": "Filipino payroll calculators — SSS, PhilHealth, Pag-IBIG contributions; 13th month pay; net take-home. Versioned contribution tables per effective year.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["philippines", "filipino", "payroll", "sss", "philhealth", "pagibig", "13th-month", "calculator"],
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhDevUtils\\Payroll\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhDevUtils\\Payroll\\Tests\\": "tests/"
+    }
+  }
+}
