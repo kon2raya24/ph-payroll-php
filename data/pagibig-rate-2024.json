@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "effective_from": "2024-02-01",
+    "effective_until": null,
+    "applies_to_years": [2024, 2025, 2026],
+    "source": "Pag-IBIG HDMF Circular 460 (and subsequent)",
+    "source_url": "https://www.pagibigfund.gov.ph/",
+    "authority": "Republic Act No. 9679 (HDMF Law of 2009), as amended",
+    "verified_on": "2026-05-19",
+    "notes": [
+      "Effective February 2024: maximum Monthly Fund Salary (MFS) raised from ₱5,000 to ₱10,000.",
+      "Employee/employer rates depend on MFS bracket.",
+      "Mandatory contribution is capped; members may opt to contribute more voluntarily (out of scope for this package)."
+    ]
+  },
+
+  "msc": {
+    "_alias": "MFS — Monthly Fund Salary",
+    "cap": 10000,
+    "_comment": "MFS = min(monthlyCompensation, cap)."
+  },
+
+  "brackets": [
+    {
+      "mfs_upper_inclusive": 1500,
+      "employee_percent": 0.01,
+      "employer_percent": 0.02
+    },
+    {
+      "mfs_upper_inclusive": null,
+      "_upper_comment": "null = no upper, but MFS is capped at msc.cap (₱10,000)",
+      "employee_percent": 0.02,
+      "employer_percent": 0.02
+    }
+  ],
+
+  "_max_contribution_each_comment": "At MFS = ₱10,000, employee = 10,000 × 2% = ₱200; employer = 10,000 × 2% = ₱200."
+}
