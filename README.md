@@ -4,11 +4,11 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kon2raya24/ph-payroll/blob/main/LICENSE)
 [![Made in PH](https://img.shields.io/badge/made%20in-🇵🇭%20Philippines-0038A8)](https://github.com/kon2raya24)
 
-Filipino payroll calculators for PHP — SSS, PhilHealth, Pag-IBIG monthly contributions, 13th-month pay, and pre-tax net take-home. Tables versioned by effective date.
+Filipino payroll calculators for PHP — SSS, PhilHealth, Pag-IBIG monthly contributions, 13th-month pay, BIR monthly withholding tax (TRAIN), and pre-tax / post-tax net take-home. Tables versioned by effective date.
 
 ## ⚠️ READ FIRST
 
-This package handles **real money math**. Wrong outputs cause underpayment / overpayment in actual payroll runs. Verify outputs against official agency calculators before production use. Pin your dependency version — tables change every few years. **BIR withholding tax is NOT included in v0.1** (deferred to v0.2).
+This package handles **real money math**. Wrong outputs cause underpayment / overpayment in actual payroll runs. Verify outputs against official agency calculators before production use. Pin your dependency version — tables change every few years. **BIR WT in v0.2 is monthly-only** and operates on **taxable income**, not raw gross. De minimis caps and the ₱90k 13th-month annual exemption are caller-handled in v0.2.
 
 Full disclaimer: [project README](https://github.com/kon2raya24/ph-payroll#-read-first--accuracy-disclaimer).
 
@@ -25,6 +25,7 @@ Requires PHP 8.2+.
 ```php
 use PhDevUtils\Payroll\TakeHome;
 
+// Pre-tax (v0.1 shape — unchanged):
 $r = TakeHome::netTakeHome(30000);
 // [
 //   'gross' => 30000.0,
@@ -34,6 +35,10 @@ $r = TakeHome::netTakeHome(30000);
 //   'totalDeductions' => 2450.0,
 //   'net' => 27550.0,
 // ]
+
+// With BIR monthly WT (v0.2 opt-in):
+$r = TakeHome::netTakeHome(30000, ['includeWT' => true]);
+// adds: 'taxableIncome' => 27550.0, 'withholdingTax' => 1007.55, 'netAfterTax' => 26542.45
 ```
 
 ## API Reference
@@ -141,11 +146,67 @@ ThirteenthMonth::fromMonthly(30000, 1);    // 2500.0
 
 ---
 
+### `WithholdingTax::monthly(float $taxableIncome, array $opts = []): array` *(v0.2+)*
+
+Source: **BIR RR 11-2018** monthly table (TRAIN Law, second-phase rates effective 2023-01-01).
+
+Return shape: `['wt' => float, 'bracket' => int (1-6), 'marginalRate' => float]`.
+
+**Input is taxable income, not gross.** Use `TaxableIncome::monthly` to derive.
+
+**BIR monthly brackets (TRAIN 2023+):**
+
+| Bracket | Monthly taxable income | Tax |
+| --- | --- | --- |
+| 1 | ≤ ₱20,833 | 0 |
+| 2 | ₱20,833 – ₱33,333 | 15% of excess over ₱20,833 |
+| 3 | ₱33,333 – ₱66,667 | ₱1,875 + 20% of excess over ₱33,333 |
+| 4 | ₱66,667 – ₱166,667 | ₱8,541.80 + 25% of excess over ₱66,667 |
+| 5 | ₱166,667 – ₱666,667 | ₱33,541.80 + 30% of excess over ₱166,667 |
+| 6 | > ₱666,667 | ₱183,541.80 + 35% of excess over ₱666,667 |
+
+```php
+use PhDevUtils\Payroll\WithholdingTax;
+
+WithholdingTax::monthly(15000);    // ['wt' => 0.0,        'bracket' => 1, 'marginalRate' => 0.0]
+WithholdingTax::monthly(25000);    // ['wt' => 625.05,     'bracket' => 2, 'marginalRate' => 0.15]
+WithholdingTax::monthly(50000);    // ['wt' => 5208.4,     'bracket' => 3, 'marginalRate' => 0.20]
+WithholdingTax::monthly(100000);   // ['wt' => 16875.05,   'bracket' => 4, 'marginalRate' => 0.25]
+WithholdingTax::monthly(200000);   // ['wt' => 43541.7,    'bracket' => 5, 'marginalRate' => 0.30]
+WithholdingTax::monthly(1000000);  // ['wt' => 300208.35,  'bracket' => 6, 'marginalRate' => 0.35]
+```
+
+---
+
+### `TaxableIncome::monthly(float $gross, array $opts = []): float` *(v0.2+)*
+
+Derive monthly taxable income from gross. Formula:
+
+```
+taxableIncome = gross − mandatoryDeductions − nonTaxableAllowances
+```
+
+`$opts` keys: `year`, `mandatoryDeductions` (override; default: auto-computed from gross via SSS+PhilHealth+Pag-IBIG), `nonTaxableAllowances` (default: 0).
+
+**Caller-handled** (not done here):
+- **De minimis caps** — pass only the non-taxable portion. Rice ₱2,000/mo, uniform ₱6,000/yr, medical ₱10,000/yr (employee), etc.
+- **₱90,000 annual exemption** for 13th-month + bonuses — applies at year level.
+
+```php
+use PhDevUtils\Payroll\TaxableIncome;
+
+TaxableIncome::monthly(30000);                                     // 27550.0
+TaxableIncome::monthly(30000, ['nonTaxableAllowances' => 2000]);   // 25550.0
+TaxableIncome::monthly(50000, ['mandatoryDeductions' => 3200]);    // 46800.0
+```
+
+---
+
 ### `TakeHome::netTakeHome(float $monthlySalary, array $opts = []): array`
 
-Pre-tax net take-home: gross minus mandatory SSS / PhilHealth / Pag-IBIG employee contributions.
+Net take-home: gross minus mandatory SSS / PhilHealth / Pag-IBIG employee contributions, and (optionally, v0.2+) BIR withholding tax.
 
-Return shape:
+Return shape (always):
 ```php
 [
   'gross' => float,
@@ -154,17 +215,30 @@ Return shape:
   'pagIbig' => array,     // full PagIbig::contribution result
   'totalDeductions' => float,
   'net' => float,
+  // when ['includeWT' => true]:
+  'taxableIncome'  => float,
+  'withholdingTax' => float,
+  'netAfterTax'    => float,
 ]
 ```
 
-**Important:** Does **NOT** subtract BIR withholding tax. To get true take-home, subtract WT separately using a tax engine.
+`$opts` keys: `year`, `includeWT` (default false — preserves v0.1 shape), `nonTaxableAllowances` (only used with `includeWT`).
 
 ```php
 use PhDevUtils\Payroll\TakeHome;
 
+// v0.1 shape (default) — pre-tax:
 TakeHome::netTakeHome(30000)['net'];     // 27550.0
 TakeHome::netTakeHome(8000)['net'];      // 7190.0
 TakeHome::netTakeHome(150000)['net'];    // 145550.0
+
+// v0.2+ with WT:
+TakeHome::netTakeHome(30000, ['includeWT' => true])['withholdingTax'];   // 1007.55
+TakeHome::netTakeHome(30000, ['includeWT' => true])['netAfterTax'];      // 26542.45
+
+// v0.2+ with non-taxable allowances:
+TakeHome::netTakeHome(30000, ['includeWT' => true, 'nonTaxableAllowances' => 2000])['withholdingTax'];
+// 707.55
 ```
 
 ---
