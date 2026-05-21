@@ -1,6 +1,6 @@
 {
   "name": "phdevutils/payroll",
-  "description": "Filipino payroll calculators — SSS, PhilHealth, Pag-IBIG contributions; 13th month pay; BIR monthly withholding tax (TRAIN); net take-home. Versioned contribution tables per effective year.",
+  "description": "Filipino payroll calculators — SSS, PhilHealth, Pag-IBIG, 13th-month, BIR withholding tax for all 4 payroll periods (TRAIN), de minimis caps (RR 29-2025), ₱90k 13th-month/bonus exemption, net take-home. Versioned tables.",
   "type": "library",
   "license": "MIT",
   "keywords": ["philippines", "filipino", "payroll", "sss", "philhealth", "pagibig", "bir", "withholding-tax", "train-law", "13th-month", "calculator"],

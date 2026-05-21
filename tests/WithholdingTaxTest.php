@@ -168,4 +168,113 @@ final class WithholdingTaxTest extends TestCase
         $this->assertArrayNotHasKey('withholdingTax', $r);
         $this->assertArrayNotHasKey('netAfterTax', $r);
     }
+
+    // Semi-monthly (v0.3)
+    public function testSemiMonthlyB1Boundary(): void
+    {
+        $r = WithholdingTax::semiMonthly(10417);
+        $this->assertSame(0.0, $r['wt']);
+        $this->assertSame(1, $r['bracket']);
+        $this->assertSame('semi-monthly', $r['period']);
+    }
+
+    public function testSemiMonthlyB2Boundary(): void
+    {
+        $this->assertSame(937.5, WithholdingTax::semiMonthly(16667)['wt']);
+    }
+
+    public function testSemiMonthlyB3Boundary(): void
+    {
+        $this->assertSame(4270.7, WithholdingTax::semiMonthly(33333)['wt']);
+    }
+
+    public function testSemiMonthlyB4Boundary(): void
+    {
+        $this->assertSame(16770.7, WithholdingTax::semiMonthly(83333)['wt']);
+    }
+
+    public function testSemiMonthlyB5Boundary(): void
+    {
+        $this->assertSame(91770.7, WithholdingTax::semiMonthly(333333)['wt']);
+    }
+
+    public function testSemiMonthlyB6(): void
+    {
+        $r = WithholdingTax::semiMonthly(500000);
+        $this->assertSame(150104.15, $r['wt']);
+        $this->assertSame(6, $r['bracket']);
+    }
+
+    // Weekly (v0.3)
+    public function testWeeklyB1Boundary(): void
+    {
+        $this->assertSame(0.0, WithholdingTax::weekly(4808)['wt']);
+    }
+
+    public function testWeeklyB2Boundary(): void
+    {
+        $this->assertSame(432.6, WithholdingTax::weekly(7692)['wt']);
+    }
+
+    public function testWeeklyB3Boundary(): void
+    {
+        $this->assertSame(1971.2, WithholdingTax::weekly(15385)['wt']);
+    }
+
+    public function testWeeklyB4Boundary(): void
+    {
+        $this->assertSame(7740.45, WithholdingTax::weekly(38462)['wt']);
+    }
+
+    public function testWeeklyB5Boundary(): void
+    {
+        $this->assertSame(42355.65, WithholdingTax::weekly(153846)['wt']);
+    }
+
+    public function testWeeklyB6(): void
+    {
+        $r = WithholdingTax::weekly(200000);
+        $this->assertSame(58509.55, $r['wt']);
+        $this->assertSame(6, $r['bracket']);
+    }
+
+    // Daily (v0.3)
+    public function testDailyB1Boundary(): void
+    {
+        $this->assertSame(0.0, WithholdingTax::daily(685)['wt']);
+    }
+
+    public function testDailyB2Boundary(): void
+    {
+        $this->assertSame(61.65, WithholdingTax::daily(1096)['wt']);
+    }
+
+    public function testDailyB3Boundary(): void
+    {
+        $this->assertSame(280.85, WithholdingTax::daily(2192)['wt']);
+    }
+
+    public function testDailyB4Boundary(): void
+    {
+        $this->assertSame(1102.6, WithholdingTax::daily(5479)['wt']);
+    }
+
+    public function testDailyB5Boundary(): void
+    {
+        $this->assertSame(6034.3, WithholdingTax::daily(21918)['wt']);
+    }
+
+    public function testDailyB6(): void
+    {
+        $r = WithholdingTax::daily(30000);
+        $this->assertSame(8863.0, $r['wt']);
+        $this->assertSame(6, $r['bracket']);
+        $this->assertSame('daily', $r['period']);
+    }
+
+    public function testSemiMonthlyRejectsUnsupportedYear(): void
+    {
+        $this->expectException(\OutOfRangeException::class);
+        WithholdingTax::semiMonthly(15000, ['year' => 2020]);
+    }
 }
