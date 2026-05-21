@@ -1,0 +1,28 @@
+{
+  "_meta": {
+    "effective_from": "2023-01-01",
+    "effective_until": null,
+    "applies_to_years": [2023, 2024, 2025, 2026],
+    "period": "monthly",
+    "source": "BIR Revenue Regulations No. 11-2018 (as amended by TRAIN Law) — Monthly Compensation Level (MCL) table, Annex E",
+    "source_url": "https://www.bir.gov.ph/index.php/tax-information/withholding-tax.html",
+    "authority": "Republic Act No. 10963 (Tax Reform for Acceleration and Inclusion / TRAIN Law), as further amended by RA 11534 (CREATE Law) — individual income tax brackets effective January 1, 2023 onwards (second phase of TRAIN rate reductions)",
+    "verified_on": "2026-05-20",
+    "notes": [
+      "Withholding tax is applied to TAXABLE INCOME, not gross compensation.",
+      "Taxable income = gross compensation − mandatory employee contributions (SSS, PhilHealth, Pag-IBIG) − non-taxable allowances (de minimis benefits within caps).",
+      "13th-month pay and other bonuses are non-taxable up to ₱90,000 per year (excess is taxable in the year of receipt); not applied at monthly level.",
+      "Bracket bases (1875.00, 8541.80, 33541.80, 183541.80) are the BIR-published rounded monthly values derived from annualized cumulative tax (annual base ÷ 12).",
+      "This table is for MONTHLY payroll periods only. Semi-monthly, weekly, and daily payrolls use separate BIR-published tables (planned for v0.3)."
+    ]
+  },
+
+  "brackets": [
+    { "bracket": 1, "over": 0,      "not_over": 20833,  "base": 0.00,      "rate_over_min": 0.00 },
+    { "bracket": 2, "over": 20833,  "not_over": 33333,  "base": 0.00,      "rate_over_min": 0.15 },
+    { "bracket": 3, "over": 33333,  "not_over": 66667,  "base": 1875.00,   "rate_over_min": 0.20 },
+    { "bracket": 4, "over": 66667,  "not_over": 166667, "base": 8541.80,   "rate_over_min": 0.25 },
+    { "bracket": 5, "over": 166667, "not_over": 666667, "base": 33541.80,  "rate_over_min": 0.30 },
+    { "bracket": 6, "over": 666667, "not_over": null,   "base": 183541.80, "rate_over_min": 0.35 }
+  ]
+}

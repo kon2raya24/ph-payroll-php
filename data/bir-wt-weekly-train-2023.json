@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "effective_from": "2023-01-01",
+    "effective_until": null,
+    "applies_to_years": [2023, 2024, 2025, 2026],
+    "period": "weekly",
+    "source": "BIR Revenue Regulations No. 11-2018 (as amended by TRAIN Law) — Weekly Compensation Level (WCL) table, Annex E",
+    "source_url": "https://bir-cdn.bir.gov.ph/local/pdf/Annex%20E%20RR%2011-2018.pdf",
+    "authority": "Republic Act No. 10963 (Tax Reform for Acceleration and Inclusion / TRAIN Law) — individual income tax brackets effective January 1, 2023 onwards (second phase of TRAIN rate reductions)",
+    "verified_on": "2026-05-21",
+    "notes": [
+      "Withholding tax is applied to TAXABLE INCOME, not gross compensation.",
+      "Bracket 'over' values are the LOWER exclusive bounds. At TI = bracket floor exactly, the worker stays in the previous bracket; math is continuous at boundaries.",
+      "Bracket bases (432.60, 1971.20, 7740.45, 42355.65) are the BIR-published weekly cumulative tax values (annual ÷ 52)."
+    ]
+  },
+
+  "brackets": [
+    { "bracket": 1, "over": 0,      "not_over": 4808,   "base": 0.00,     "rate_over_min": 0.00 },
+    { "bracket": 2, "over": 4808,   "not_over": 7692,   "base": 0.00,     "rate_over_min": 0.15 },
+    { "bracket": 3, "over": 7692,   "not_over": 15385,  "base": 432.60,   "rate_over_min": 0.20 },
+    { "bracket": 4, "over": 15385,  "not_over": 38462,  "base": 1971.20,  "rate_over_min": 0.25 },
+    { "bracket": 5, "over": 38462,  "not_over": 153846, "base": 7740.45,  "rate_over_min": 0.30 },
+    { "bracket": 6, "over": 153846, "not_over": null,   "base": 42355.65, "rate_over_min": 0.35 }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "effective_from": "2025-12-22",
+    "effective_until": null,
+    "applies_to_years": [2025, 2026],
+    "source": "BIR Revenue Regulations No. 29-2025 (issued 2025-12-22), further amending the de minimis benefit ceilings under RR 2-98 / RR 11-2018",
+    "supersedes": ["RR 2-98", "RR 11-2018 (de minimis section)", "RR 5-2011", "RR 8-2012", "RR 1-2015", "RR 11-2018", "RR 4-2025"],
+    "verified_on": "2026-05-21",
+    "notes": [
+      "De minimis benefits are non-taxable up to the listed cap. Amounts in excess of the cap are subject to income tax (and, for managerial/supervisory employees, may also be subject to fringe benefit tax).",
+      "These caps are SEPARATE from and STACK ON TOP OF the ₱90,000 annual exemption for 13th-month pay + other bonuses.",
+      "Per-category treatment is mandatory — they cannot be aggregated. An employee receiving rice subsidy ₱3,000/mo cannot offset the ₱500 excess with unused laundry allowance.",
+      "OT meal allowance (30% of regional minimum wage) is not represented as a fixed peso cap because it varies by region; callers must supply both amount and regional wage when checking."
+    ]
+  },
+
+  "monthly_caps": {
+    "rice_subsidy": {
+      "cap_php": 2500,
+      "description": "Rice subsidy of ₱2,500 or one 50-kg sack of rice per month, whichever is non-cash"
+    },
+    "laundry_allowance": {
+      "cap_php": 400,
+      "description": "Laundry allowance"
+    },
+    "medical_cash_allowance_dependents": {
+      "cap_php": 333.33,
+      "description": "Medical cash allowance to dependents — ₱2,000 per semester, expressed here as monthly equivalent (₱2,000 / 6 months ≈ ₱333.33)"
+    }
+  },
+
+  "annual_caps": {
+    "uniform_clothing": {
+      "cap_php": 8000,
+      "description": "Uniform and clothing allowance"
+    },
+    "medical_assistance": {
+      "cap_php": 12000,
+      "description": "Actual medical assistance to employee"
+    },
+    "employee_achievement_awards": {
+      "cap_php": 12000,
+      "description": "Employee achievement awards (tangible personal property, not cash, for length-of-service or safety achievement)"
+    },
+    "gifts_christmas_anniversary": {
+      "cap_php": 6000,
+      "description": "Gifts given during Christmas and major anniversary celebrations"
+    },
+    "cba_productivity_incentives": {
+      "cap_php": 12000,
+      "description": "CBA benefits and productivity incentives combined (single ceiling for both)"
+    },
+    "monetized_unused_vl_private": {
+      "cap_days": 12,
+      "description": "Monetized unused vacation leave credits for private employees — up to 12 days per year, valued at the employee's daily rate"
+    }
+  },
+
+  "annual_exemption_13th_month_and_bonuses": {
+    "cap_php": 90000,
+    "source": "RA 10963 (TRAIN Law), Section 32(B)(7)(e); confirmed unchanged as of RR 29-2025",
+    "description": "13th-month pay, Christmas bonus, productivity incentives that are NOT classified as de minimis, and other benefits — non-taxable in aggregate up to ₱90,000 per year. Excess is taxable in the year of receipt."
+  }
+}

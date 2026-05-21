@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "effective_from": "2023-01-01",
+    "effective_until": null,
+    "applies_to_years": [2023, 2024, 2025, 2026],
+    "period": "daily",
+    "source": "BIR Revenue Regulations No. 11-2018 (as amended by TRAIN Law) — Daily Compensation Level (DCL) table, Annex E",
+    "source_url": "https://bir-cdn.bir.gov.ph/local/pdf/Annex%20E%20RR%2011-2018.pdf",
+    "authority": "Republic Act No. 10963 (Tax Reform for Acceleration and Inclusion / TRAIN Law) — individual income tax brackets effective January 1, 2023 onwards (second phase of TRAIN rate reductions)",
+    "verified_on": "2026-05-21",
+    "notes": [
+      "Withholding tax is applied to TAXABLE INCOME, not gross compensation.",
+      "Bracket 'over' values are the LOWER exclusive bounds. At TI = bracket floor exactly, the worker stays in the previous bracket; math is continuous at boundaries.",
+      "Bracket bases (61.65, 280.85, 1102.60, 6034.30) are the BIR-published daily cumulative tax values (annual ÷ 365)."
+    ]
+  },
+
+  "brackets": [
+    { "bracket": 1, "over": 0,     "not_over": 685,   "base": 0.00,    "rate_over_min": 0.00 },
+    { "bracket": 2, "over": 685,   "not_over": 1096,  "base": 0.00,    "rate_over_min": 0.15 },
+    { "bracket": 3, "over": 1096,  "not_over": 2192,  "base": 61.65,   "rate_over_min": 0.20 },
+    { "bracket": 4, "over": 2192,  "not_over": 5479,  "base": 280.85,  "rate_over_min": 0.25 },
+    { "bracket": 5, "over": 5479,  "not_over": 21918, "base": 1102.60, "rate_over_min": 0.30 },
+    { "bracket": 6, "over": 21918, "not_over": null,  "base": 6034.30, "rate_over_min": 0.35 }
+  ]
+}

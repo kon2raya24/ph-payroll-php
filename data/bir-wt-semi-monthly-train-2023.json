@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "effective_from": "2023-01-01",
+    "effective_until": null,
+    "applies_to_years": [2023, 2024, 2025, 2026],
+    "period": "semi-monthly",
+    "source": "BIR Revenue Regulations No. 11-2018 (as amended by TRAIN Law) — Semi-Monthly Compensation Level (SMCL) table, Annex E",
+    "source_url": "https://bir-cdn.bir.gov.ph/local/pdf/Annex%20E%20RR%2011-2018.pdf",
+    "authority": "Republic Act No. 10963 (Tax Reform for Acceleration and Inclusion / TRAIN Law) — individual income tax brackets effective January 1, 2023 onwards (second phase of TRAIN rate reductions)",
+    "verified_on": "2026-05-21",
+    "notes": [
+      "Withholding tax is applied to TAXABLE INCOME, not gross compensation.",
+      "Bracket 'over' values are the LOWER exclusive bounds. At TI = bracket floor exactly, the worker stays in the previous bracket and pays the previous bracket's tax up to that point — which equals the next bracket's published 'base'. Math is continuous at boundaries.",
+      "Bracket bases (937.50, 4270.70, 16770.70, 91770.70) are the BIR-published semi-monthly cumulative tax values (annual ÷ 24)."
+    ]
+  },
+
+  "brackets": [
+    { "bracket": 1, "over": 0,      "not_over": 10417,  "base": 0.00,     "rate_over_min": 0.00 },
+    { "bracket": 2, "over": 10417,  "not_over": 16667,  "base": 0.00,     "rate_over_min": 0.15 },
+    { "bracket": 3, "over": 16667,  "not_over": 33333,  "base": 937.50,   "rate_over_min": 0.20 },
+    { "bracket": 4, "over": 33333,  "not_over": 83333,  "base": 4270.70,  "rate_over_min": 0.25 },
+    { "bracket": 5, "over": 83333,  "not_over": 333333, "base": 16770.70, "rate_over_min": 0.30 },
+    { "bracket": 6, "over": 333333, "not_over": null,   "base": 91770.70, "rate_over_min": 0.35 }
+  ]
+}
